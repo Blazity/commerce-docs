@@ -36,7 +36,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "setup"]
+      "pages": ["introduction", "setup", "performance"]
     },
     {
       "group": "Features",
