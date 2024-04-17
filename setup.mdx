@@ -21,6 +21,8 @@ npm create commerce
 
 To streamline the setup process, we will first list all necessary environment variables required for configuration. Subsequently, we'll provide detailed instructions on how to obtain each of these variables.
 
+> **Note:** By default, your commerce application runs in **demo mode**. To access all features, ensure the following variables are set in your `.env.local` file and `NEXT_PUBLIC_IS_DEMO_MODE=false`.
+
 Below is the list of environment variables that you'll need to configure in your `.env.local` file for the proper setup of your enterprise commerce system:
 
 ```plaintext
@@ -34,7 +36,6 @@ LIVE_URL=https://commerce.blazity.com
 FLAGS_SECRET=EAMwX-AhlPipEaZfTc-24bxAZ7BvLikwuIV2Zq7FP64 # change to your own
 ```
 
-Remember to generate your own `FLAGS_SECRET` using `node -e "console.log(crypto.randomBytes(32).toString('base64url'))"`.
 
 Replace `your_store_domain.myshopify.com`, `your_storefront_access_token`, `your_admin_access_token`, and `your_app_api_key` with the actual values that you will obtain through the setup process described below.
 
@@ -91,7 +92,21 @@ To get started with Meilisearch Cloud, navigate to the Meilisearch Cloud platfor
 - Locate and copy the `Master key`. This key should be securely stored in your `.env.local` file under the `MEILISEARCH_MASTER_KEY` variable.
 - Copy the Meilisearch URL and place it in your `.env.local` file under `MEILISEARCH_HOST`. **Ensure you do not include a trailing slash at the end of the URL.**
 
-### 5. Live URL
+### 5. Feature Flags
+
+You have two ways to manage feature flags:
+
+- Manually inside Vercel dashboard
+- Runtime override using [Vercel Toolbar](https://vercel.com/docs/workflow-collaboration/vercel-toolbar) 
+
+The latter allows you to change settings as needed while your application is running. Overrides are not persisted and only effect the user applying them.
+
+- **Variables Required:** `FLAGS_SECRET`
+- **Generating your own secret:**
+    - `node -e "console.log(crypto.randomBytes(32).toString('base64url'))"`.
+    - Copy and add to your `.env.local`
+
+### 6. Live URL
 
 The Live URL is the primary web address where your Enterprise Commerce application is hosted. If you have a custom domain, use that URL. If you don't have a custom domain yet, use the URL provided by your hosting provider. The Live URL is used for generating metadata and can be used for additional functionalities in the future, making it crucial for SEO and the general functioning of the application.
 
