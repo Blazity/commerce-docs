@@ -56,7 +56,8 @@
         "features/ci-cd",
         "features/platform-agnostic",
         "features/mega-menu",
-        "features/autocomplete"
+        "features/autocomplete",
+        "features/reviews"
       ]
     }
   ],

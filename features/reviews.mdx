@@ -1,0 +1,53 @@
+---
+title: "Reviews & AI Summary"
+description: "Learn how to integrate reviews with your e-commerce"
+icon: "star"
+---
+
+
+Reviews are critical for every e-commerce platform, and Enterprise Commerce provides an easy way to integrate reviews with your storefront.
+
+Currently, we've implemented logic for the [Judge.me](https://judge.me/) provider, **but more integrations are coming soon.**
+
+## How It Works
+
+From a high-level perspective, the implementation breaks down into the following steps:
+- A user submits a review, and the data is pushed directly to the reviews provider.
+- A scheduled cron job periodically syncs reviews with the search index.
+- The data cache revalidates the frontend.
+
+### How to Set Up
+
+To get reviews up and running, ensure the following API keys are set within your environment variables either in the Vercel Dashboard or `.env.local` file, along with your store domain:
+
+- `JUDGE_BASE_URL`
+- `JUDGE_API_TOKEN`
+- `SHOPIFY_STORE_DOMAIN`
+
+You can obtain these by setting up an account on the provider's website.
+
+We also assume that you are already using one of the [search solutions](/features/filtering) to have a proper browsing experience
+
+### Why This Approach?
+
+We've integrated reviews with our search solution because our architecture is designed to have a single source of truth for data retrieval. We run daily cron jobs (adjustable) between the search and review providers to ensure data stays in sync.
+
+This approach also allows us to extend our Product Listing Page (PLP) functionality to filter and sort results based on their **average rating**.
+
+### Making Reviews More Dynamic
+
+Near real-time updates are possible but often require a paid plan depending on the provider. If this is the case for your business, we can set up webhooks that will:
+
+- Call a webhook to update search when a new review is added.
+- Have the search call another webhook once data is updated to revalidate the Next.js data cache.
+
+> **Please note:** This functionality is currently not available in the demo. We are actively working on adding it and will update the documentation accordingly.
+
+## AI Reviews Summary
+
+We've also added another feature that you can opt into by setting the `OPEN_AI_API_KEY`.
+
+The reviews summary is generated based on all ratings, highlighting the product's best and worst aspects.
+
+They are updated weekly only if the product receives a new review. This approach ensures that SEO can safely pick up changes and index them while still providing relevant information to the user.
+
