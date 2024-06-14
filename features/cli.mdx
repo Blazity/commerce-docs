@@ -21,20 +21,82 @@ pnpm add -g commerce-cli
 yarn global add commerce-cli
 ```
 
+### Usage
+
+```
+commerce-cli [command] [options]
+```
+
+For more information run:
+```
+commerce-cli -h
+```
+
+Our CLI will try to find required environment variables in `packages/apps/web/.env.local`.
+Each variable will be prompted to you for confirmation when using commands. 
+
+To opt-in you have to follow the below naming convention:
+
+```
+Shopify admin access token: SHOPIFY_ADMIN_ACCESS_TOKEN
+Shopify store URL: SHOPIFY_STORE_DOMAIN
+Meilisearch admin key: MEILISEARCH_ADMIN_KEY || MEILISEARCH_MASTER_KEY
+Meilisearch Host: MEILISEARCH_HOST
+Categories index: MEILISEARCH_CATEGORIES_INDEX
+Products index: MEILISEARCH_PRODUCTS_INDEX
+
+```
+
+> Note: This list will be updated as more platforms are added to our starter.
+
+
 ### Available Commands
 
 #### `sync`
 
-<Frame>
-  <img className="block" src="/images/cli-demo.png" alt="Cli demo" />
-</Frame>
+`commerce-cli sync | s [opts]`
 
-The `sync` command provides a streamlined method for importing your Shopify product data into Meilisearch. This process is automated and takes only minutes to complete. Importantly, the command **does not modify your products in Shopify**, eliminating the need for backups or concerns about data alteration. It solely fetches product data and uploads it to Meilisearch.
+This command allows you to pull all of your products and categories from your commerce platform, and synchronize it with your search & merch solution.
 
-**Usage:**
+You will be asked whether to set up webhooks to keep your products and categories in sync continuously, eliminating the need for manual synchronization.
 
-```bash
-commerce-cli sync
+Importantly, this command **does not modify your products in Shopify**, eliminating the need for backups or concerns about data alteration. It solely fetches product data and uploads it to your search engine.
+
+
+##### Options: 
+
+```
+ -url, --storeUrl <url>: Platform store URL
+ -token, --adminAccessToken <token>: Store admin access token
+ -host, --searchHost <host>: Search host
+ -adminKey, --searchAdminKey <key>: Search admin key
+ -categoriesIndex, --categoriesIndex <index>: Search categories index
+ -productsIndex, --productsIndex <index>: Search products index
+ -env, --envFilePath <path>: Path to your .env file
 ```
 
-Note: It runs the background job on the Shopify end which means that the migration won't be instant. It might take some time depending on Shpify servers usage. It is also incremental so you will see items appearing one by one.
+---
+
+#### `webhook`
+
+`commerce-cli webhook | w [opts]`
+
+This command helps you check and maintain webhooks set for your commerce platform with ease. You can delete and modify existing webhooks individually or in bulk, as well as create new ones.
+
+This allows you to stay in control of background tasks set for your commerce.
+
+##### Options:
+
+```
+  -c, --create                Create a webhook for your store
+  -l, --list                  List and manage all webhooks for your store
+  -u, --url <url>             Shopify store URL
+  -t, --token <token>         Shopify admin access token
+  -env, --envFilePath <path>  Path to your .env file
+```
+
+You can also simply run `commerce-cli webhook` and use the UI to get things done.
+
+---
+
+For more information on how to possess each of the keys please check our [Setup Page](/setup#1-shopify-store-domain)
