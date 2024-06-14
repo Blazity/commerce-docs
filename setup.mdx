@@ -32,7 +32,7 @@ SHOPIFY_STORE_DOMAIN=your_store_domain.myshopify.com
 SHOPIFY_STOREFRONT_ACCESS_TOKEN=your_storefront_access_token
 SHOPIFY_ADMIN_ACCESS_TOKEN=your_admin_access_token
 SHOPIFY_APP_API_SECRET_KEY=your_app_api_key
-MEILISEARCH_MASTER_KEY=master_key
+MEILISEARCH_ADMIN_KEY=admin_key
 MEILISEARCH_CATEGORIES_INDEX=categories
 MEILISEARCH_PRODUCTS_INDEX=products
 MEILISEARCH_HOST=https://something.meilisearch.io
@@ -91,9 +91,9 @@ Meilisearch is a powerful, fast, open-source search engine. There are two main w
 To get started with Meilisearch Cloud, navigate to the Meilisearch Cloud platform and [log in](https://cloud.meilisearch.com/).
 
 - Create a new project within the platform.
-- Create an index called `products`. If you wish to use different index name you will also have to make a change in the codebase.
+- Create two indicies called `products` and `categories`. If you wish to use different names you will also have to make a change in the codebase.
 - After your project is set up, proceed to the "Settings" tab of your Meilisearch Cloud project.
-- Locate and copy the `Master key`. This key should be securely stored in your `.env.local` file under the `MEILISEARCH_MASTER_KEY` variable.
+- Locate and copy the `Default Admin API Key`. This key should be securely stored in your `.env.local` file under the `MEILISEARCH_ADMIN_KEY` variable.
 - Copy the Meilisearch URL and place it in your `.env.local` file under `MEILISEARCH_HOST`. **Ensure you do not include a trailing slash at the end of the URL.**
 
 ### 5. Feature Flags
