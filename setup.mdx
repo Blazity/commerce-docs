@@ -22,6 +22,8 @@ npm create commerce
 To streamline the setup process, we will first list all necessary environment variables required for configuration. Subsequently, we'll provide detailed instructions on how to obtain each of these variables.
 
 > **Note:** By default, your commerce application runs in **demo mode**. To access all features, ensure the following variables are set in your `.env.local`.
+>
+> The best and easiest way to get the full version is to use `sync` command in our [CLI](/features/cli#sync), that will synchronize products and categories for you, as same as setup webhooks for continuous synchronization.
 
 Below is the list of environment variables that you'll need to configure in your `.env.local` file for the proper setup of your enterprise commerce system:
 
@@ -30,7 +32,7 @@ SHOPIFY_STORE_DOMAIN=your_store_domain.myshopify.com
 SHOPIFY_STOREFRONT_ACCESS_TOKEN=your_storefront_access_token
 SHOPIFY_ADMIN_ACCESS_TOKEN=your_admin_access_token
 SHOPIFY_APP_API_SECRET_KEY=your_app_api_key
-MEILISEARCH_MASTER_KEY=master_key
+MEILISEARCH_ADMIN_KEY=admin_key
 MEILISEARCH_CATEGORIES_INDEX=categories
 MEILISEARCH_PRODUCTS_INDEX=products
 MEILISEARCH_HOST=https://something.meilisearch.io
@@ -89,9 +91,9 @@ Meilisearch is a powerful, fast, open-source search engine. There are two main w
 To get started with Meilisearch Cloud, navigate to the Meilisearch Cloud platform and [log in](https://cloud.meilisearch.com/).
 
 - Create a new project within the platform.
-- Create an index called `products`. If you wish to use different index name you will also have to make a change in the codebase.
+- Create two indicies called `products` and `categories`. If you wish to use different names you will also have to make a change in the codebase.
 - After your project is set up, proceed to the "Settings" tab of your Meilisearch Cloud project.
-- Locate and copy the `Master key`. This key should be securely stored in your `.env.local` file under the `MEILISEARCH_MASTER_KEY` variable.
+- Locate and copy the `Default Admin API Key`. This key should be securely stored in your `.env.local` file under the `MEILISEARCH_ADMIN_KEY` variable.
 - Copy the Meilisearch URL and place it in your `.env.local` file under `MEILISEARCH_HOST`. **Ensure you do not include a trailing slash at the end of the URL.**
 
 ### 5. Feature Flags
@@ -119,8 +121,8 @@ The last thing, but also crucial for application to work correctly is setting yo
 - Go to your index settings. Remembers that index should be named `products`
 - Go to **Attributes** section, and:
   - Ensure **Searchable attributes** are set to `["*"]`
-  - Ensure **Filterable attributes** are set to `["collections","collections.title","flatOptions","handle","minPrice","tags","variants.availableForSale","vendor"]`
-  - Ensure **Sortable attributes** are set to `["minPrice","updatedAtTimestamp"]`
+  - Ensure **Filterable attributes** are set to `["collections","collections.title","flatOptions","handle","minPrice","tags","variants.availableForSale","vendor", "avgRating"]`
+  - Ensure **Sortable attributes** are set to `["minPrice","updatedAtTimestamp", "avgRating"]`
 - Go to **Ranking Rules** section, and:
   - Change the Ranking rules order to `["sort","words","typo","proximity","attribute","exactness"]`
 
