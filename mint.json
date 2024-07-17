@@ -41,11 +41,11 @@
     {
       "group": "Features",
       "pages": [
-        "features/vector-search",
-        "features/ai-image-captioning",
+        "features/platform-agnostic",
+        "features/filtering",
+        "features/hierarchical-categories",
         "features/og-images",
         "features/seo",
-        "features/filtering",
         "features/draft-mode",
         "features/vercel-toolbar",
         "features/cli",
@@ -54,10 +54,17 @@
         "features/redirects",
         "features/favorites",
         "features/ci-cd",
-        "features/platform-agnostic",
         "features/mega-menu",
         "features/autocomplete",
         "features/reviews"
+      ]
+    },
+    {
+      "group": "AI Features",
+      "pages": [
+        "ai-features/image-captioning",
+        "ai-features/vector-search",
+        "ai-features/reviews-summary"
       ]
     }
   ],
