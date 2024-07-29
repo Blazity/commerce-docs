@@ -132,10 +132,12 @@ The last thing, but also crucial for application to work correctly is setting yo
 **Products index:**
 
 Filterable attributes:
- ```
- // "hierarchicalCategories*" only if you're planning on using this feature
- // "avgRating" only if you're using reviews feature
 
+> - "hierarchicalCategories*" only if you're planning on using this feature
+> - "avgRating" only if you're using reviews feature
+
+
+ ```
 [
 "collections",
 "collections.handle",
@@ -149,19 +151,23 @@ Filterable attributes:
 "hierarchicalCategories",
 "hierarchicalCategories.lvl0",
 "hierarchicalCategories.lvl1",
-"hierarchicalCategories.lvl2,"
+"hierarchicalCategories.lvl2",
 "avgRating"
 ]
 ```
 
 Sortable attributes:
+
+> "avgRating" only if you're using reviews feature
+
 ```
-// "avgRating" only if you're using reviews feature
 
 [
 "minPrice",
 "updatedAtTimestamp",
 "avgRating"
+]
+
 ```
 
 **Categories index:**
