@@ -4,38 +4,67 @@ description: "Learn how we implemented search and advanced filtering"
 icon: "filter-list"
 ---
 
-Enterprise Commerce integrates Meilisearch as its core engine for **robust search, filtering, and recommendations**, ensuring that product data is accurately reflected and easily accessible.
-Meilisearch provides a lightning-fast, typo-tolerant search experience that enhances the overall usability and efficiency of Enterprise Commerce.
+Enterprise Commerce integrates both Meilisearch or Algolia as its core engine for **robust search, filtering, and recommendations**, ensuring that product data is accurately reflected and easily accessible. Both search engines provide lightning-fast, typo-tolerant search experiences that enhance the overall usability and efficiency of Enterprise Commerce.
 
-To learn more about Meilisearch and its capabilities, visit [Meilisearch Documentation](https://www.meilisearch.com/docs).
+To learn more about these search engines and their capabilities, visit:
+
+- [Meilisearch Documentation](https://www.meilisearch.com/docs)
+- [Algolia Documentation](https://www.algolia.com/doc/)
 
 <Warning>
-  The integration with Meilisearch is designed to operate exclusively on the server side. Attempts to utilize the Meilisearch client or SDK on the client side will result in an
-  error
+  The integration with both Meilisearch and Algolia is designed to operate
+  exclusively on the server side. Attempts to utilize their respective clients
+  or SDKs on the client side will result in an error.
 </Warning>
 
-Developers should access the Meilisearch instance via the provided path `apps/web/clients/meilisearch.ts`
+Developers should access the search engine instances via the provided path `clients/search.ts`
 
 ## Using the Filter Builder
 
-The `FilterBuilder` class provides a convenient way to construct complex filter expressions for Meilisearch queries. It allows you to chain methods to define various filter criteria, including comparisons, logical operators, and special operators like `EXISTS`, `IS EMPTY`, and `IS NULL`.
+The `FilterBuilder` class provides a convenient way to construct complex filter expressions for both Meilisearch and Algolia queries. It allows you to chain methods to define various filter criteria, including comparisons, logical operators, and special operators.
 
-Here's an example of how to use the `FilterBuilder`:
+Here's an example of how to use the `FilterBuilder` when using Meilisearch:
 
 ```typescript
 const filter = new FilterBuilder()
   .where("price", ComparisonOperators.GreaterThan, 100)
   .and()
-  .group((sub) => sub.where("category", "=", "Electronics").or().where("category", "=", "Computers"))
-  .build()
+  .group((sub) =>
+    sub
+      .where("category", "=", "Electronics")
+      .or()
+      .where("category", "=", "Computers")
+  )
+  .build();
 
 // This will generate the following filter expression:
 // price > 100 AND (category = "Electronics" OR category = "Computers")
 ```
 
-This filter expression will search for products with a price greater than 100 and belonging to either the `Electronics` or `Computers` category.
+Here's an example of how to use the `FilterBuilder` when using Algolia:
+
+```typescript
+const filter = new FilterBuilder()
+  .where("price", 100, ComparisonOperators.GreaterThan)
+  .and()
+  .group((sub) =>
+    sub.where("category", "Electronics").or().where("category", "Computers")
+  )
+  .build();
+
+// This will generate the following filter expression:
+// price > 100 AND (category:"Electronics" OR category:"Computers")
+```
 
 The `FilterBuilder` offers a variety of methods to construct complex search queries, allowing you to tailor your product searches to specific needs and provide a user-friendly experience.
+
+<Note>
+  While the `FilterBuilder` syntax is consistent for both Meilisearch and
+  Algolia, there might be slight differences in how certain filters are applied
+  or interpreted by each search engine. Always refer to the specific
+  documentation of the search engine you're using for any engine-specific
+  behavior.
+</Note>
 
 ## Reference
 

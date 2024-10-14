@@ -36,12 +36,11 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "providers", "setup", "performance"]
+      "pages": ["introduction", "starters", "providers", "setup", "performance"]
     },
     {
       "group": "Features",
       "pages": [
-        "features/platform-agnostic",
         "features/filtering",
         "features/hierarchical-categories",
         "features/og-images",
@@ -53,8 +52,6 @@
         "features/ab-tests",
         "features/redirects",
         "features/favorites",
-        "features/ci-cd",
-        "features/mega-menu",
         "features/autocomplete",
         "features/reviews"
       ]

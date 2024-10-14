@@ -7,26 +7,9 @@ In today's world utilizing third-party providers is essential for building a rob
 
 These providers can significantly reduce overhead and eliminate the need for redundant development efforts. Below, you will find a list of providers that integrate seamlessly with our system, enabling you to get started quickly while we keep adding more options.
 
-You can also roll your own solution, for more information, please see [Search](/features/filtering) and [Platform Agnostic](/features/platform-agnostic).
+Depending on the [starter](/starters) you choose, you will need to obtain different keys.
 
 ---
-
-Below is the list of environment variables that you'll need to configure in your `.env.local` file for the proper setup of your enterprise commerce system:
-
-```plaintext
-SHOPIFY_STORE_DOMAIN=your_store_domain.myshopify.com
-SHOPIFY_STOREFRONT_ACCESS_TOKEN=your_storefront_access_token
-SHOPIFY_ADMIN_ACCESS_TOKEN=your_admin_access_token
-SHOPIFY_APP_API_SECRET_KEY=your_app_api_key
-MEILISEARCH_ADMIN_KEY=admin_key
-MEILISEARCH_CATEGORIES_INDEX=categories
-MEILISEARCH_PRODUCTS_INDEX=products
-MEILISEARCH_HOST=https://something.meilisearch.io
-LIVE_URL=https://commerce.blazity.com
-FLAGS_SECRET=EAMwX-AhlPipEaZfTc-24bxAZ7BvLikwuIV2Zq7FP64 # change to your own
-```
-
-Replace values for each key with the actual value that you will obtain through the setup process described below.
 
 ## Commerce Platform
 
@@ -42,7 +25,6 @@ SHOPIFY_STOREFRONT_ACCESS_TOKEN
 SHOPIFY_ADMIN_ACCESS_TOKEN
 SHOPIFY_APP_API_SECRET_KEY
 ```
-
 
 #### 1. Shopify Store Domain
 
@@ -80,11 +62,83 @@ SHOPIFY_APP_API_SECRET_KEY
 
 ## Search & Merch
 
+### Algolia
+
+Algolia is a SaaS platform that provides fast, customizable, and scalable search capabilities.
+
+
+**Keys to obtain:**
+```
+ALGOLIA_APP_ID
+ALGOLIA_WRITE_API_KEY
+ALGOLIA_PRODUCTS_INDEX
+ALGOLIA_CATEGORIES_INDEX
+ALGOLIA_REVIEWS_INDEX - only if you're using reviews feature
+```
+
+To get starter create an account and log in to the [admin dashboard](https://dashboard.algolia.com/)
+
+- Go to your account settings and API Keys
+- From here copy `Application ID`, `Write API Key`
+- Now go to your search dashboard and create indicies for products, categories and reviews
+- Copy those indicies name as well and 
+- Paste obtained keys to your `.env.local`
+
+---
+
+#### Indicies Setup
+
+For your storefront to work properly there's necessary setup required:
+
+Setup your `products` index attributes for faceting:
+
+> - "hierarchicalCategories" only if you're planning on using this feature
+> - "avgRating" only if you're using reviews feature
+
+```
+[
+"collections.handle",
+"collections.id",
+"flatOptions.color",
+"handle",
+"minPrice",
+"tags",
+"variants.availableForSale",
+"vendor",
+"hierarchicalCategories.lvl0",
+"hierarchicalCategories.lvl1",
+"hierarchicalCategories.lvl2",
+"avgRating"
+]
+```
+
+And then your `categories` index attributes for faceting:
+
+```
+handle
+```
+
+
+Now to make your sorting work we need to create virtual replica for each of the sorting options, the formula is:
+
+```
+{indexName}_price_desc
+{indexName}_price_asc
+{indexName}_rating_desc
+{indexName}_updated_asc
+{indexName}_updated_desc
+```
+
+And for each replica:
+
+- Configuration tab > Relevant Sort > minPrice/avgRating/updatedAtTimestamp - (ascending/descending)
+
+
 ### Meilisearch
 
-Meilisearch is a powerful, fast, open-source search engine. 
+Meilisearch is a powerful, fast, open-source search engine.
 
-There are two main ways to host Meilisearch: 
+There are two main ways to host Meilisearch:
 
 - on-premise (self-hosting on dedicated servers or cloud providers)
 - using Meilisearch Cloud.
@@ -117,7 +171,11 @@ To get started with Meilisearch Cloud, navigate to the Meilisearch Cloud platfor
 The last thing, but also crucial for application to work correctly is setting your Meilisearch index the right way.
 
 <Frame>
-  <img className="block" src="/images/meilisearch-settings.png" alt="Meilisearch settings" />
+  <img
+    className="block"
+    src="/images/meilisearch-settings.png"
+    alt="Meilisearch settings"
+  />
 </Frame>
 
 **Products index:**
@@ -127,8 +185,7 @@ Filterable attributes:
 > - "hierarchicalCategories" only if you're planning on using this feature
 > - "avgRating" only if you're using reviews feature
 
-
- ```
+```
 [
 "collections",
 "collections.handle",
@@ -165,8 +222,7 @@ Sortable attributes:
 
 Filterable attributes:
 
-
- ```
+```
 [
 "handle",
 "id"

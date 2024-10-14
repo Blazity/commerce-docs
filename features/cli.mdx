@@ -1,6 +1,6 @@
 ---
 title: "CLI"
-description: "Easily migrate your Shopify products to Meilisearch with our CLI"
+description: "Easily migrate your Shopify products to the search platform  with our CLI"
 icon: "terminal"
 ---
 
@@ -40,16 +40,23 @@ To opt-in you have to follow the below naming convention:
 ```
 Shopify admin access token: SHOPIFY_ADMIN_ACCESS_TOKEN
 Shopify store URL: SHOPIFY_STORE_DOMAIN
+
+And depending on the search platform:
+
 Meilisearch admin key: MEILISEARCH_ADMIN_KEY
 Meilisearch Host: MEILISEARCH_HOST
 Categories index: MEILISEARCH_CATEGORIES_INDEX
 Products index: MEILISEARCH_PRODUCTS_INDEX
 
+or:
+
+Algolia AppId: ALGOLIA_APP_ID
+Algolia Write Api Key: ALGOLIA_WRITE_API_KEY
+Categories index: ALGOLIA_CATEGORIES_INDEX
+Products index: ALGOLIA_PRODUCTS_INDEX
+
+
 ```
-
-> Note: This list will be updated as more platforms are added to our starter.
-
-
 ### Available Commands
 
 #### `sync`

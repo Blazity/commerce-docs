@@ -1,0 +1,32 @@
+---
+title: "Starters & Architecture"
+description: "Learn about the different starter combinations available"
+---
+
+Enterprise Commerce offers a range of storefront starter combinations. While businesses don't often need to switch their e-commerce platforms, when they do, this template serves as a solid foundation.
+
+Each starter represents a combination of a [commerce platform](/providers#commerce-platform) and a [search & merch provider](/providers#search-and-merch), as these are often the most challenging aspects of storefront integration.
+
+- [Shopify & Algolia](https://github.com/blazity/enterprise-commerce/tree/main/starters/shopify-algolia)
+- [Shopify & Meilisearch](https://github.com/blazity/enterprise-commerce/tree/main/starters/shopify-meilisearch)
+
+This allows you to select the best combination for your specific requirements while maintaining a consistent architecture across different setups.
+
+## Architecture
+
+Enterprise Commerce is designed with a flexible and modular architecture that ensures a seamless and efficient experience for both store owners and customers. The key to this architecture is maintaining a single source of truth for data retrieval, allowing businesses to provide a consistent shopping experience.
+
+<Frame>
+  <img className="block" src="/images/architecture.png" alt="architecture" />
+</Frame>
+
+**Key Components:**
+
+    1. **Single Source of Truth for Data Retrieval:** The storefront retrieves all its data from the search platform. This approach leverages the capabilities of search and merchandising. Ensuring that data displayed to customers is always optimized for searching, filtering, and additional merchandising functionalities like Frequently Bought Together, Top Rated or Bestsellers.
+    2. **Data Mutations Managed by the Commerce Platform:**	While data retrieval is centralized through the search platform, data mutations — such as interactions with the cart or building the checkout are managed directly through the commerce platform (e.g. Shopify).
+    3. **Synchronization Between Systems:** To keep data consistent across platforms, synchronization is handled through mechanisms like webhooks (e.g. Shopify webhooks). This can be replaced with other architectures depending on the specifics of your business.
+
+### Flexibility and Modularity
+
+Above solution offers a highly flexible and modular setup that can be adapted to various business needs.
+By decoupling data retrieval and mutation processes, businesses can select the best combination of commerce platform and search provider while maintaining a consistent architectural approach across different setups.
