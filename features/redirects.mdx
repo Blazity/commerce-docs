@@ -22,12 +22,12 @@ With its scalable and optimized approach, Enterprise Commerce provides a reliabl
 
 ### Configuration
 
-We store redirect rules in a JSON file located at `apps/web/redirects/redirects.json`.
+We store redirect rules in a JSON file located at `[starter]/lib/redirects/redirects.json`.
 This file follows a simple structure, where each key represents the old URL path, and the corresponding value is an object containing the `destination` URL and a `permanent` flag indicating whether the redirect is permanent (301) or temporary (307).
 
 Here's an example of the `redirects.json` file:
 
-```json apps/web/redirects/redirects.json
+```json [starter]/lib/redirects/redirects.json
 {
   "/old": {
     "destination": "/new",
